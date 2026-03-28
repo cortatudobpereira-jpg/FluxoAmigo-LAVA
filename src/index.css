@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --font-primary: 'Outfit', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-primary {
+  font-family: var(--font-primary);
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
+}
+
+/* Premium Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism Utilities */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* ============================================
+   CAR WASH LOGIN — 3D Animations & Effects
+   ============================================ */
+
+/* Floating bubble animation */
+@keyframes float-bubble {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0.4);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(40vh) translateX(var(--drift-x, 30px)) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(var(--drift-end, -20px)) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Bubble wobble */
+@keyframes wobble {
+  0%, 100% { border-radius: 50%; }
+  25% { border-radius: 48% 52% 50% 50%; }
+  50% { border-radius: 52% 48% 52% 48%; }
+  75% { border-radius: 50% 50% 48% 52%; }
+}
+
+/* Shimmer sweep on buttons */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Glow pulse for logo */
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.8)) drop-shadow(0 0 60px rgba(139, 92, 246, 0.3));
+  }
+}
+
+/* Wave undulation */
+@keyframes wave-move {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25px) translateY(-5px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes wave-move-reverse {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(25px) translateY(5px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+/* Subtle rotate for 3D depth */
+@keyframes subtle-3d-rotate {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+  25% { transform: perspective(1000px) rotateY(2deg) rotateX(-1deg); }
+  50% { transform: perspective(1000px) rotateY(-1deg) rotateX(1deg); }
+  75% { transform: perspective(1000px) rotateY(1deg) rotateX(-0.5deg); }
+}
+
+/* Water reflection sheen */
+@keyframes water-sheen {
+  0% { opacity: 0; transform: translateX(-100%) skewX(-15deg); }
+  30% { opacity: 0.4; }
+  100% { opacity: 0; transform: translateX(200%) skewX(-15deg); }
+}
+
+/* Scale in entrance */
+@keyframes scale-in {
+  0% {
+    transform: scale(0.8) translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Gradient background shift */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Bubble container */
+.login-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.8) 0%,
+    rgba(186,230,253,0.3) 30%,
+    rgba(56,189,248,0.15) 60%,
+    rgba(139,92,246,0.05) 100%
+  );
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,0.15),
+    0 0 15px rgba(56,189,248,0.15);
+  animation: float-bubble var(--duration, 8s) var(--delay, 0s) ease-in-out infinite,
+             wobble 4s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.login-bubble::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 35%;
+  height: 20%;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  filter: blur(2px);
+  transform: rotate(-30deg);
+}
+
+/* Login card 3D */
+.login-card-3d {
+  transform-style: preserve-3d;
+  animation: subtle-3d-rotate 8s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.login-card-3d:hover {
+  animation-play-state: paused;
+}
+
+/* Logo glow */
+.car-wash-logo-container {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Shimmer button */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 3s ease-in-out infinite;
+}
+
+/* Login gradient background */
+.login-bg {
+  background: linear-gradient(135deg,
+    #0c1929 0%,
+    #0a2540 25%,
+    #0e3558 50%,
+    #0a2540 75%,
+    #0c1929 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Wave layers */
+.wave-layer {
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 110%;
+  pointer-events: none;
+}
+
+/* Scale-in entrance */
+.entrance-scale {
+  animation: scale-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Input focus ring glow */
+.input-glow:focus {
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+/* Water sheen on card */
+.water-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0.05) 40%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.05) 60%,
+    transparent 100%
+  );
+  animation: water-sheen 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ============================================
+   POPPING BUBBLES — Discrete Background
+   ============================================ */
+
+@keyframes pop-bubble {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 0.5;
+  }
+  85% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes pop-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.pop-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.7) 0%,
+    rgba(186,230,253,0.25) 40%,
+    rgba(56,189,248,0.08) 100%
+  );
+  border: 1px solid rgba(255,255,255,0.25);
+  pointer-events: none;
+  animation: pop-bubble var(--pop-duration, 3s) var(--pop-delay, 0s) ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.pop-bubble::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  animation: pop-ring var(--pop-duration, 3s) var(--pop-delay, 0s) ease-out infinite;
+}
+
+.pop-bubble::after {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 30%;
+  height: 18%;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  filter: blur(1px);
+  transform: rotate(-25deg);
+}
+
+/* Financial Blur for non-admins */
+.blur-finance {
+  filter: blur(5px);
+  user-select: none;
+  pointer-events: none;
+}
